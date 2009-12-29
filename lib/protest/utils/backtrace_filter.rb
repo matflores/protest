@@ -1,17 +1,23 @@
 module Protest
   module Utils
     # Small utility object to filter an error's backtrace and remove any mention
-    # of Testicle's own files.
-    module BacktraceFilter
-      # Path to the library's 'lib' dir.
-      BASE_PATH = /^#{Regexp.escape(File.dirname(File.dirname(File.dirname(File.expand_path(__FILE__)))))}/
+    # of Protest's own files.
+    class BacktraceFilter
+      ESCAPE_PATHS = [
+        # Path to the library's 'lib' dir.
+        /^#{Regexp.escape(File.dirname(File.dirname(File.dirname(File.expand_path(__FILE__)))))}/,
+
+        # Users certainly don't care about what test loader is being used
+        %r[lib/rake/rake_test_loader.rb], %r[bin/testrb]
+      ]
 
       # Filter the backtrace, removing any reference to files located in
       # BASE_PATH.
-      def self.filter(backtrace)
+      def filter_backtrace(backtrace, prefix=nil)
+        paths = ESCAPE_PATHS + [prefix].compact
         backtrace.reject do |line|
           file = line.split(":").first
-          File.expand_path(file) =~ BASE_PATH
+          paths.any? {|path| File.expand_path(file) =~ path }
         end
       end
     end

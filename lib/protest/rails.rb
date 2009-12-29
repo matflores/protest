@@ -1,10 +1,26 @@
 require "protest"
 require "test/unit/assertions"
 require "action_controller/test_case"
-require "webrat"
+
+begin
+  require "webrat"
+rescue LoadError
+  $no_webrat = true
+end
 
 module Protest
   module Rails
+    # Exclude rails' files from the errors
+    class BacktraceFilter < Utils::BacktraceFilter
+      include ::Rails::BacktraceFilterForTestUnit
+
+      def filter_backtrace(backtrace, prefix=nil)
+        super(backtrace, prefix).reject do |line|
+          line.starts_with?("/")
+        end
+      end
+    end
+
     # Wrap all tests in a database transaction.
     #
     # TODO: make this optional somehow (yet enabled by default) so users of
@@ -38,7 +54,7 @@ module Protest
     # should use webrat for integration tests. Really.
     class IntegrationTest < RequestTest
       include ActionController::Integration::Runner
-      include Webrat::Methods
+      include Webrat::Methods unless $no_webrat
     end
   end
 
@@ -59,4 +75,6 @@ module Protest
   class << self
     alias_method :describe, :context
   end
+
+  self.backtrace_filter = Rails::BacktraceFilter.new
 end
