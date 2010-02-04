@@ -106,7 +106,7 @@ module Protest
         end
 
         def test_type(test)
-          case test # order is important since ErroredTest < FailedTest
+          case test
           when ErroredTest; "Error"
           when FailedTest;  "Failure"
           end
