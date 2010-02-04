@@ -51,13 +51,13 @@ module Protest
       # (unrescued exceptions), including file and line number where the test
       # failed, and a short backtrace.
       #
-      # It will not output anything if there weren't any pending tests.
+      # It will not output anything if there weren't any failures or errors.
       #
       # For example:
       #
       #     on :end do |report|
       #       report.puts
-      #       report.summarize_pending_tests
+      #       report.summarize_errors
       #     end
       #
       # This relies on the public Report API, and on the presence of a #puts
