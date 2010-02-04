@@ -49,8 +49,8 @@ module Protest
       @tests ||= []
     end
 
-    # Add a test to be run in this context. This method is aliased as +it+ and
-    # +should+ for your comfort.
+    # Add a test to be run in this context. This method is aliased as +it+,
+    # +should+ and +scenario+ for your comfort.
     def self.test(name, &block)
       tests << new(name, caller.at(0), &block)
     end
@@ -78,6 +78,8 @@ module Protest
     # state set on this operations. For example, creating large amount of
     # records in a database or filesystem, when your tests will only read these
     # records.
+    #
+    # This method is aliased as +before_all+ for your comfort.
     def self.global_setup(&block)
       (class << self; self; end).class_eval do
         define_method :do_global_setup do
@@ -106,6 +108,8 @@ module Protest
     #
     # See TestCase.global_setup for a discussion on why these methods are best
     # avoided unless you really need them and use them carefully.
+    #
+    # This method is aliased as +after_all+ for your comfort.
     def self.global_teardown(&block)
       (class << self; self; end).class_eval do
         define_method :do_global_teardown do
@@ -117,7 +121,8 @@ module Protest
 
     # Define a new test context nested under the current one. All +setup+ and
     # +teardown+ blocks defined on the current context will be inherited by the
-    # new context. This method is aliased as +describe+ for your comfort.
+    # new context. This method is aliased as +describe+ and +story+ for your 
+    # comfort.
     def self.context(description, &block)
       subclass = Class.new(self)
       subclass.class_eval(&block) if block
