@@ -142,7 +142,7 @@ module Protest
       alias_method :after,      :teardown
 
       alias_method :before_all, :global_setup
-      alias_method :after_all,  :global_setup
+      alias_method :after_all,  :global_teardown
 
       alias_method :it,         :test
       alias_method :should,     :test
