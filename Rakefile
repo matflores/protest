@@ -19,6 +19,8 @@ begin
 rescue LoadError
 end
 
-Rake::TestTask.new
+Rake::TestTask.new do |t|
+  t.libs << "test"
+end
 
 task :default => :test
