@@ -31,7 +31,7 @@ module Protest
     rescue LoadError
     end
 
-    # Run all tests in this context. Takes a Report instance in order to
+    # Run all tests in this context. Takes a Runner instance in order to
     # provide output.
     def self.run(runner)
       runner.report(TestWrapper.new(:setup, self), true)
