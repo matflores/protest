@@ -178,7 +178,7 @@ module Protest
     # condition isn't met. You can override the default failure message
     # by passing it as an argument.
     def assert(condition, message="Expected condition to be satisfied")
-      @report.add_assertion
+      @report.on_assertion
       raise AssertionFailed, message unless condition
     end
 
