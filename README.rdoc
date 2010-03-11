@@ -30,7 +30,7 @@ Protest.
 
 Or
 
-    rip install git://github.com/foca/protest.git v0.2.3
+    rip install git://github.com/matflores/protest.git v0.3.0
 
 == Setup and teardown
 
