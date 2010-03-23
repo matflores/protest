@@ -10,13 +10,13 @@ module Protest
     # events on the runner's report, at the +start+ and +end+ of the test run,
     # and before and after each test case (+enter+ and +exit+.)
     def run(*test_cases)
-      @report.on_start if @report.respond_to?(:on_start)
+      fire_event :start
       test_cases.each do |test_case|
-        @report.on_enter(test_case) if @report.respond_to?(:on_enter)
+        fire_event :enter, test_case
         test_case.run(self)
-        @report.on_exit(test_case) if @report.respond_to?(:on_exit)
+        fire_event :exit, test_case
       end
-      @report.on_end if @report.respond_to?(:on_end)
+      fire_event :end
     end
 
     # Run a test and report if it passes, fails, or is pending. Takes the name
@@ -24,16 +24,23 @@ module Protest
     # force any exceptions to be re-raied and the test not reported as a pass
     # after it finishes (for global setup/teardown blocks)
     def report(test, running_global_setup_or_teardown=false)
-      @report.on_test(Test.new(test)) if @report.respond_to?(:on_test) && !running_global_setup_or_teardown
+      fire_event(:test, Test.new(test)) unless running_global_setup_or_teardown
       test.run(@report)
-      @report.on_pass(PassedTest.new(test)) unless running_global_setup_or_teardown
+      fire_event(:pass, PassedTest.new(test)) unless running_global_setup_or_teardown
     rescue Pending => e
-      @report.on_pending(PendingTest.new(test, e))
+      fire_event :pending, PendingTest.new(test, e)
     rescue AssertionFailed => e
-      @report.on_failure(FailedTest.new(test, e))
+      fire_event :failure, FailedTest.new(test, e)
     rescue Exception => e
-      @report.on_error(ErroredTest.new(test, e))
+      fire_event :error, ErroredTest.new(test, e)
       raise if running_global_setup_or_teardown
+    end
+
+    protected
+
+    def fire_event(event, *args)
+      event_handler_method = :"on_#{event}"
+      @report.send(event_handler_method, *args) if @report.respond_to?(event_handler_method)
     end
   end
 end
