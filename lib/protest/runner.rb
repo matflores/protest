@@ -20,20 +20,18 @@ module Protest
     end
 
     # Run a test and report if it passes, fails, or is pending. Takes the name
-    # of the test as an argument. By passing +true+ as the second argument, you
-    # force any exceptions to be re-raied and the test not reported as a pass
-    # after it finishes (for global setup/teardown blocks)
-    def report(test, running_global_setup_or_teardown=false)
-      fire_event(:test, Test.new(test)) unless running_global_setup_or_teardown
+    # of the test as an argument.
+    def report(test)
+      fire_event(:test, Test.new(test)) if test.real?
       test.run(@report)
-      fire_event(:pass, PassedTest.new(test)) unless running_global_setup_or_teardown
+      fire_event(:pass, PassedTest.new(test)) if test.real?
     rescue Pending => e
       fire_event :pending, PendingTest.new(test, e)
     rescue AssertionFailed => e
       fire_event :failure, FailedTest.new(test, e)
     rescue Exception => e
       fire_event :error, ErroredTest.new(test, e)
-      raise if running_global_setup_or_teardown
+      raise if test.raise_exceptions?
     end
 
     protected

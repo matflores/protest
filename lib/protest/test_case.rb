@@ -34,9 +34,9 @@ module Protest
     # Run all tests in this context. Takes a Runner instance in order to
     # provide output.
     def self.run(runner)
-      runner.report(TestWrapper.new(:setup, self), true)
-      tests.each {|test| runner.report(test, false) }
-      runner.report(TestWrapper.new(:teardown, self), true)
+      runner.report(TestWrapper.new(:setup, self))
+      tests.each {|test| runner.report(test) }
+      runner.report(TestWrapper.new(:teardown, self))
     rescue Exception => e
       # If any exception bubbles up here, then it means it was during the
       # global setup/teardown blocks, so let's just skip the rest of this
@@ -199,6 +199,16 @@ module Protest
       @name
     end
 
+    # Tests must not re-raise exceptions
+    def raise_exceptions?
+      false
+    end
+
+    # This is a real test
+    def real?
+      true
+    end
+
     private
 
     def setup #:nodoc:
@@ -247,6 +257,15 @@ module Protest
 
       def run(report)
         @test.send("do_global_#{@type}")
+      end
+
+      def raise_exceptions?
+        true
+      end
+
+      # This is not a real test but a fake one
+      def real?
+        false
       end
     end
   end

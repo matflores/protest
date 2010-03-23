@@ -87,6 +87,23 @@ Protest.describe("A test case") do
     assert_equal 1, report.total_tests
   end
 
+  it "skips to the next test after an unrescued exception is raised" do
+    report = mock_test_case do
+      test "Unrescued exception" do
+        raise "I'm nasty"
+      end
+
+      test "Passing test" do
+        assert true
+      end
+    end
+
+    assert_equal 1, report.errors.size
+    assert_equal 1, report.failures_and_errors.size
+    assert_equal 1, report.passes.size
+    assert_equal 2, report.total_tests
+  end
+
   it "runs setup blocks before the tests, and they share state with your test" do
     report = mock_test_case do
       setup do
