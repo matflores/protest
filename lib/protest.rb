@@ -98,6 +98,7 @@ require "protest/report"
 require "protest/reports"
 require "protest/reports/progress"
 require "protest/reports/documentation"
+require "protest/reports/turn"
 
 Protest.autorun = true
 Protest.report_with(:progress)
