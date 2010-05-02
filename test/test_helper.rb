@@ -31,9 +31,6 @@ module TestHelpers
 
     report = silent_report(report)
     Protest::Runner.new(report).run(*[test_case, *nested_contexts])
-#    [test_case, *nested_contexts].each do |test_case|
-#      test_case.run(Protest::Runner.new(report))
-#    end
     report
   end
 end
