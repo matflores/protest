@@ -187,6 +187,34 @@ Will output, when run with the <tt>:documentation</tt> report:
 
 This is similar to the specdoc runner in rspec[http://rspec.info].
 
+=== Summary report
+
+Use this report by calling <tt>Protest.report_with(:summary)</tt>
+
+Will output a brief summary with the total number of tests, assertions, passed
+tests, pending tests, failed tests and errors.
+
+=== Stories report
+
+Use this report by calling <tt>Protest.report_with(:stories)</tt>
+
+This report is based on Citrusbyte's Stories[http://github.com/citrusbyte/stories],
+by Damian Janowski and Michel Martens.
+
+=== Turn report
+
+Use this report by calling <tt>Protest.report_with(:turn)</tt>
+
+This report displays each test on a separate line with failures being displayed
+immediately instead of at the end of the tests.
+
+You might find this useful when running a large test suite, as it can be very
+frustrating to see a failure (....F...) and then have to wait until all the
+tests finish before you can see what the exact failure was.
+
+This report is based on the output displayed by TURN[http://github.com/TwP/turn],
+Test::Unit Reporter (New) by Tim Pease.
+
 === Defining your own reports
 
 This is really, really easy. All you need to do is subclass Report, and
