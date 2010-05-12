@@ -2,16 +2,16 @@
 
     require "protest"
 
-    Protest.context("A user") do
+    Protest.describe("A user") do
       setup do
         @user = User.new(:name => "John Doe", :email => "john@example.org")
       end
 
-      test "has a name" do
+      it "has a name" do
         assert_equal "John Doe", @user.name
       end
 
-      test "has an email" do
+      it "has an email" do
         assert_equal "john@example.org", @user.email
       end
     end
@@ -49,7 +49,7 @@ If you need to run code before or after each test, declare a +setup+ or
 
 +setup+ and +teardown+ blocks are evaluated in the same context as your test,
 which means any instance variables defined in any of them are available in the
-rest.
+rest. Both methods are aliased for your comfort as before and after respectively.
 
 You can also use +global_setup+ and +global_teardown+ to run code only once per
 test case. +global_setup+ blocks will run once before the first test is run, and
@@ -69,13 +69,13 @@ them.
 
 Break down your test into logical chunks with nested contexts:
 
-    Protest.context("A user") do
+    Protest.describe("A user") do
       setup do
         @user = User.make
       end
 
       context "when validating" do
-        test "validates name" do
+        it "validates name" do
           @user.name = nil
           assert !@user.valid?
         end
@@ -84,7 +84,7 @@ Break down your test into logical chunks with nested contexts:
       end
 
       context "doing something else" do
-        # your get the idea
+        # you get the idea
       end
     end
 
