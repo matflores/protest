@@ -1,14 +1,14 @@
 Gem::Specification.new do |s|
   s.name    = "protest"
-  s.version = "0.3.0"
-  s.date    = "2010-03-11"
+  s.version = "0.3.1"
+  s.date    = "2010-05-19"
 
   s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
   s.summary     = s.description
-  s.homepage    = "http://rubyprotest.org"
+  s.homepage    = "http://matflores.github.com/protest"
 
-  s.authors = ["Nicolás Sanguinetti"]
-  s.email   = "contacto@nicolassanguinetti.info"
+  s.authors = ["Nicolás Sanguinetti", "Matías Flores"]
+  s.email   = "mflores@atlanware.com"
 
   s.require_paths     = ["lib"]
   s.rubyforge_project = "protest"
@@ -29,10 +29,15 @@ lib/protest/utils/colorful_output.rb
 lib/protest/test_case.rb
 lib/protest/tests.rb
 lib/protest/runner.rb
+lib/protest/stories.rb
 lib/protest/report.rb
 lib/protest/reports.rb
 lib/protest/reports/progress.rb
 lib/protest/reports/documentation.rb
+lib/protest/reports/summary.rb
+lib/protest/reports/turn.rb
+lib/protest/reports/stories.rb
+lib/protest/reports/stories/pdf.rb
 lib/protest/rails.rb
 ]
 end
