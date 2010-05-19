@@ -224,5 +224,6 @@ Protest::Reports::Progress and Protest::Reports::Documentation.
 
 == Legal
 
+Maintainer:: Matías Flores — http://matflores.com
 Author:: Nicolás Sanguinetti — http://nicolassanguinetti.info
 License:: MIT (see bundled LICENSE file for more info)
