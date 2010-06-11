@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Protest
   def self.story(description, &block)
     context(description) do
