@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name    = "protest"
-  s.version = "0.3.1"
-  s.date    = "2010-05-19"
+  s.version = "0.3.2"
+  s.date    = "2010-07-27"
 
   s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
   s.summary     = s.description
