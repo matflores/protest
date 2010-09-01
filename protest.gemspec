@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name    = "protest"
-  s.version = "0.3.2"
-  s.date    = "2010-07-27"
+  s.version = "0.4.0"
+  s.date    = "2010-09-01"
 
   s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
   s.summary     = s.description
@@ -38,6 +39,5 @@ lib/protest/reports/summary.rb
 lib/protest/reports/turn.rb
 lib/protest/reports/stories.rb
 lib/protest/reports/stories/pdf.rb
-lib/protest/rails.rb
 ]
 end

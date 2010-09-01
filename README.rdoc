@@ -30,7 +30,7 @@ Protest.
 
 Or
 
-    rip install git://github.com/matflores/protest.git v0.3.0
+    rip install git://github.com/matflores/protest.git v0.4.0
 
 == Setup and teardown
 
@@ -221,6 +221,10 @@ This is really, really easy. All you need to do is subclass Report, and
 register your subclass by calling +Protest.add_report+. See the
 documentation for details, or take a look at the source code for
 Protest::Reports::Progress and Protest::Reports::Documentation.
+
+== Using Rails?
+
+If you are using Rails you may want to take a look at http://github.com/matflores/protest-rails.
 
 == Legal
 
