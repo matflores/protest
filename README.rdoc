@@ -117,13 +117,17 @@ Or you can call the +pending+ method from inside your test.
 
 == Custom assertions
 
-By default Protest bundles all the assertions defined in Test::Unit (it
-literally requires them), so check its documentation for all the goodness.
+Previous versions of Protest used to bundle all the assertions defined in
+Test::Unit, but that has changed and now Protest includes just three basic
+assertion methods:
 
-If you want to add assertions, just define methods that rely on +assert+ or
-+assert_block+. The former takes a boolean and an optional error message as
-arguments, while the latter takes an optional error message as an argument and
-a block. The assertions is considered to fail if the block evaluates to neither
+- assert
+- assert_equal
+- assert_raise
+
+If you want to add assertions, just define methods that rely on +assert+.
+This method takes a boolean and an optional error message as arguments, and
+the assertion is considered to fail if the boolean evaluates to neither
 +false+ nor +nil+.
 
 For example:

@@ -25,12 +25,6 @@ module Protest
   # your tests by declaring nested contexts inside the class. See
   # TestCase.context.
   class TestCase
-    begin
-      require "test/unit/assertions"
-      include Test::Unit::Assertions
-    rescue LoadError
-    end
-
     # Run all tests in this context. Takes a Runner instance in order to
     # provide output.
     def self.run(runner)
@@ -182,10 +176,23 @@ module Protest
       raise AssertionFailed, message unless condition
     end
 
-    # Provided for Test::Unit compatibility, this lets you include
-    # Test::Unit::Assertions and everything works seamlessly.
-    def assert_block(message="Expected condition to be satisified") #:nodoc:
-      assert(yield, message)
+    # Passes if expected == actual. You can override the default
+    # failure message by passing it as an argument.
+    def assert_equal(expected, actual, message=nil)
+      assert expected == actual, message || "#{expected.inspect} expected but was #{actual.inspect}"
+    end
+
+    # Passes if the code block raises the specified exception. If no
+    # exception is specified, passes if any exception is raised,
+    # otherwise it fails. You can override the default failure message
+    # by passing it as an argument.
+    def assert_raise(exception_class=Exception, message=nil)
+      begin
+        yield
+      rescue exception_class => e
+      ensure
+        assert e, message || "Expected #{exception_class.name} to be raised"
+      end
     end
 
     # Make the test be ignored as pending. You can override the default message

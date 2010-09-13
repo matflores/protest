@@ -1,5 +1,4 @@
 require "protest"
-require "test/unit/assertions"
 
 Protest.report_with(:documentation)
 
