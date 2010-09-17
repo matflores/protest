@@ -162,10 +162,13 @@ module Protest
       @report = report
       pending if test.nil?
 
-      setup
-      instance_eval(&test)
-      teardown
-      @report = nil
+      begin
+        setup
+        instance_eval(&test)
+      ensure
+        teardown
+        @report = nil
+      end
     end
 
     # Ensure a condition is met. This will raise AssertionFailed if the

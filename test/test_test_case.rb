@@ -117,6 +117,23 @@ Protest.describe("A test case") do
     assert_equal 1, report.total_tests
   end
 
+  it "runs teardown blocks after the tests, even if the test code raised an exception" do
+    report = mock_test_case do
+      teardown do
+        @report.print "teardown"
+      end
+
+      test "raise an exception" do
+        raise "foo"
+      end
+    end
+
+    assert report.stream.messages.include?("teardown")
+
+    assert_equal 1, report.errors.size
+    assert_equal 1, report.total_tests
+  end
+
   it "doesn't share state between tests" do
     report = mock_test_case do
       test "first test" do
