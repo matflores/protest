@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name    = "protest"
-  s.version = "0.4.1"
-  s.date    = "2010-09-13"
+  s.version = "0.4.2"
+  s.date    = "2010-10-22"
 
   s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
   s.summary     = s.description
-  s.homepage    = "http://matflores.github.com/protest"
+  s.homepage    = "http://protestrb.com"
 
   s.authors = ["Nicolás Sanguinetti", "Matías Flores"]
   s.email   = "mflores@atlanware.com"
