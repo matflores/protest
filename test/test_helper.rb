@@ -1,7 +1,5 @@
 require "protest"
 
-Protest.report_with(:documentation)
-
 module TestHelpers
   class IORecorder
     attr_reader :messages
