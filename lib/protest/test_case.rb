@@ -28,14 +28,7 @@ module Protest
     # Run all tests in this context. Takes a Runner instance in order to
     # provide output.
     def self.run(runner)
-      runner.report(TestWrapper.new(:setup, self))
       tests.each {|test| runner.report(test) }
-      runner.report(TestWrapper.new(:teardown, self))
-    rescue Exception => e
-      # If any exception bubbles up here, then it means it was during the
-      # global setup/teardown blocks, so let's just skip the rest of this
-      # context.
-      return
     end
 
     # Tests added to this context.
@@ -58,58 +51,12 @@ module Protest
       end
     end
 
-    # Add a +setup+ block that will be run *once* for the entire test case,
-    # before the first test is run.
-    #
-    # Keep in mind that while +setup+ blocks are evaluated on the context of the
-    # test, and thus you can share state between them, your tests will not be
-    # able to access instance variables set in a +global_setup+ block.
-    #
-    # This is usually not needed (and generally using it is a code smell, since
-    # you could make a test dependent on the state of other tests, which is a
-    # huge problem), but it comes in handy when you need to do expensive
-    # operations in your test setup/teardown and the tests won't modify the
-    # state set on this operations. For example, creating large amount of
-    # records in a database or filesystem, when your tests will only read these
-    # records.
-    #
-    # This method is aliased as +before_all+ for your comfort.
-    def self.global_setup(&block)
-      (class << self; self; end).class_eval do
-        define_method :do_global_setup do
-          super()
-          instance_eval(&block)
-        end
-      end
-    end
-
     # Add a teardown block to be run after each test in this context. This
     # method is aliased as +after+ for your comfort.
     def self.teardown(&block)
       define_method :teardown do
         instance_eval(&block)
         super()
-      end
-    end
-
-    # Add a +teardown+ block that will be run *once* for the entire test case,
-    # after the last test is run.
-    #
-    # Keep in mind that while +teardown+ blocks are evaluated on the context of
-    # the test, and thus you can share state between the tests and the
-    # teardown blocks, you will not be able to access instance variables set in
-    # a test from your +global_teardown+ block.
-    #
-    # See TestCase.global_setup for a discussion on why these methods are best
-    # avoided unless you really need them and use them carefully.
-    #
-    # This method is aliased as +after_all+ for your comfort.
-    def self.global_teardown(&block)
-      (class << self; self; end).class_eval do
-        define_method :do_global_teardown do
-          instance_eval(&block)
-          super()
-        end
       end
     end
 
@@ -134,9 +81,6 @@ module Protest
 
       alias_method :before,     :setup
       alias_method :after,      :teardown
-
-      alias_method :before_all, :global_setup
-      alias_method :after_all,  :global_teardown
 
       alias_method :it,         :test
       alias_method :should,     :test
@@ -209,16 +153,6 @@ module Protest
       @name
     end
 
-    # Tests must not re-raise exceptions
-    def raise_exceptions?
-      false
-    end
-
-    # This is a real test
-    def real?
-      true
-    end
-
     private
 
     def setup #:nodoc:
@@ -236,14 +170,6 @@ module Protest
     end
     private_class_method :sanitize_description
 
-    def self.do_global_setup
-    end
-    private_class_method :do_global_setup
-
-    def self.do_global_teardown
-    end
-    private_class_method :do_global_teardown
-
     def self.description #:nodoc:
       parent = ancestors[1..-1].detect {|a| a < Protest::TestCase }
       "#{parent.description rescue nil} #{@description}".strip
@@ -251,32 +177,6 @@ module Protest
 
     def self.inherited(child)
       Protest.add_test_case(child)
-    end
-
-    # Provides the TestCase API for global setup/teardown blocks, so they can be
-    # "faked" as tests into the reporter (they aren't counted towards the total
-    # number of tests but they could count towards the number of failures/errors.)
-    class TestWrapper #:nodoc:
-      attr_reader :name
-
-      def initialize(type, test_case)
-        @type = type
-        @test = test_case
-        @name = "Global #{@type} for #{test_case.description}"
-      end
-
-      def run(report)
-        @test.send("do_global_#{@type}")
-      end
-
-      def raise_exceptions?
-        true
-      end
-
-      # This is not a real test but a fake one
-      def real?
-        false
-      end
     end
   end
 end
