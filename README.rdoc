@@ -1,4 +1,4 @@
-= Protest, the simplicity rebel test framework
+= Protest, the simplicity rebel test framework {<img src="https://secure.travis-ci.org/matflores/protest.png?branch=master" alt="Build Status" />}[http://travis-ci.org/matflores/protest]
 
     require "protest"
 
@@ -139,11 +139,11 @@ with a <tt>:progress</tt> report, and a <tt>:documentation</tt> report,
 
 === Progress report
 
-This is the default option, but you can force this by calling 
+This is the default option, but you can force this by calling
 <tt>Protest.report_with(:progress)</tt>.
 
 The progress report will output the "classic" Test::Unit output of periods for
-passing tests, "F" for failing assertions, "E" for unrescued exceptions, and 
+passing tests, "F" for failing assertions, "E" for unrescued exceptions, and
 "P" for pending tests, in full color.
 
 === Documentation report
