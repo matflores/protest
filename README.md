@@ -242,6 +242,6 @@ If you are using Rails you may want to take a look at [protest-rails](http://git
 
 ## Legal
 
-* Maintainer:: Matías Flores — http://matflores.com
-* Author:: Nicolás Sanguinetti — http://nicolassanguinetti.info
-* License:: MIT (see bundled LICENSE file for more info)
+* Maintainer: Matías Flores — http://matflores.com
+* Author: Nicolás Sanguinetti — http://nicolassanguinetti.info
+* License: MIT (see bundled LICENSE file for more info)
