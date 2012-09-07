@@ -5,7 +5,7 @@ require "protest"
 
 Protest.describe("A user") do
   setup do
-    @user = User.new(:name => "John Doe", :email => "john@example.org")
+    @user = User.new(name: "John Doe", email: "john@example.org")
   end
 
   it "has a name" do
@@ -40,7 +40,7 @@ If you need to run code before or after each test, declare a `setup` or
 ```ruby
 Protest.context("A user") do
   setup do # this runs before each test
-    @user = User.create(:name => "John")
+    @user = User.create(name: "John")
   end
 
   teardown do # this runs after each test
