@@ -103,7 +103,7 @@ require "protest/reports/summary"
 require "protest/reports/stories"
 
 Protest.autorun = true
-Protest.report_with(:documentation)
+Protest.report_with((ENV["PROTEST_REPORT"] || "documentation").to_sym)
 Protest.backtrace_filter = Protest::Utils::BacktraceFilter.new
 
 at_exit do
