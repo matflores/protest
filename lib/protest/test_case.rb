@@ -17,8 +17,12 @@ module Protest
   end
 
   class << self
-    alias_method :describe,   :context
-    alias_method :story,      :context
+    alias_method :describe, :context
+
+    def story(description, &block)
+      warn "[DEPRECATED] `story` alias is deprecated. Use `describe` or `context` instead."
+      context(description, &block)
+    end
   end
 
   # A TestCase defines a suite of related tests. You can further categorize
@@ -36,8 +40,8 @@ module Protest
       @tests ||= []
     end
 
-    # Add a test to be run in this context. This method is aliased as +it+,
-    # +should+ and +scenario+ for your comfort.
+    # Add a test to be run in this context. This method is aliased as +it+
+    # and +should+ for your comfort.
     def self.test(name, &block)
       tests << new(name, caller.at(0), &block)
     end
@@ -60,8 +64,7 @@ module Protest
 
     # Define a new test context nested under the current one. All +setup+ and
     # +teardown+ blocks defined on the current context will be inherited by the
-    # new context. This method is aliased as +describe+ and +story+ for your
-    # comfort.
+    # new context. This method is aliased as +describe+ for your comfort.
     def self.context(description, &block)
       subclass = Class.new(self)
       subclass.class_eval(&block) if block
@@ -74,12 +77,19 @@ module Protest
       # descriptive output when running your tests.
       attr_accessor :description
 
-      alias_method :describe,   :context
-      alias_method :story,      :context
+      alias_method :describe, :context
+      alias_method :it,       :test
+      alias_method :should,   :test
 
-      alias_method :it,         :test
-      alias_method :should,     :test
-      alias_method :scenario,   :test
+      def story(description, &block)
+        warn "[DEPRECATED] `story` alias is deprecated. Use `describe` or `context` instead."
+        context(description, &block)
+      end
+
+      def scenario(name, &block)
+        warn "[DEPRECATED] `scenario` alias is deprecated. Use `test`, `it` or `should` instead."
+        test(name, &block)
+      end
 
       def before(&block)
         warn "[DEPRECATED] `before` alias is deprecated. Use `setup` instead."
