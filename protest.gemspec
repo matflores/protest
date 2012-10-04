@@ -30,14 +30,11 @@ lib/protest/utils/colorful_output.rb
 lib/protest/test_case.rb
 lib/protest/tests.rb
 lib/protest/runner.rb
-lib/protest/stories.rb
 lib/protest/report.rb
 lib/protest/reports.rb
 lib/protest/reports/progress.rb
 lib/protest/reports/documentation.rb
 lib/protest/reports/summary.rb
 lib/protest/reports/turn.rb
-lib/protest/reports/stories.rb
-lib/protest/reports/stories/pdf.rb
 ]
 end

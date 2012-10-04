@@ -100,7 +100,6 @@ require "protest/reports/progress"
 require "protest/reports/documentation"
 require "protest/reports/turn"
 require "protest/reports/summary"
-require "protest/reports/stories"
 
 Protest.autorun = true
 Protest.report_with((ENV["PROTEST_REPORT"] || "documentation").to_sym)
