@@ -42,8 +42,7 @@ module Protest
       tests << new(name, caller.at(0), &block)
     end
 
-    # Add a setup block to be run before each test in this context. This method
-    # is aliased as +before+ for your comfort.
+    # Add a setup block to be run before each test in this context.
     def self.setup(&block)
       define_method :setup do
         super()
@@ -51,8 +50,7 @@ module Protest
       end
     end
 
-    # Add a teardown block to be run after each test in this context. This
-    # method is aliased as +after+ for your comfort.
+    # Add a teardown block to be run after each test in this context.
     def self.teardown(&block)
       define_method :teardown do
         instance_eval(&block)
@@ -62,7 +60,7 @@ module Protest
 
     # Define a new test context nested under the current one. All +setup+ and
     # +teardown+ blocks defined on the current context will be inherited by the
-    # new context. This method is aliased as +describe+ and +story+ for your 
+    # new context. This method is aliased as +describe+ and +story+ for your
     # comfort.
     def self.context(description, &block)
       subclass = Class.new(self)
@@ -79,12 +77,19 @@ module Protest
       alias_method :describe,   :context
       alias_method :story,      :context
 
-      alias_method :before,     :setup
-      alias_method :after,      :teardown
-
       alias_method :it,         :test
       alias_method :should,     :test
       alias_method :scenario,   :test
+
+      def before(&block)
+        warn "[DEPRECATED] `before` alias is deprecated. Use `setup` instead."
+        setup(&block)
+      end
+
+      def after(&block)
+        warn "[DEPRECATED] `after` alias is deprecated. Use `teardown` instead."
+        teardown(&block)
+      end
     end
 
     # Initialize a new instance of a single test. This test can be run in
