@@ -1,9 +1,19 @@
 # Protest [<img src="https://secure.travis-ci.org/matflores/protest.png?branch=master" alt="Build Status" />](http://travis-ci.org/matflores/protest)
 
+Protest is a tiny, simple, and easy-to-extend testing framework for ruby.
+
+## Get it
+
+```
+gem install protest
+```
+
+## Usage
+
 ```ruby
 require "protest"
 
-Protest.describe("A user") do
+Protest.describe "A user" do
   setup do
     @user = User.new(name: "John Doe", email: "john@example.org")
   end
@@ -18,19 +28,9 @@ Protest.describe("A user") do
 end
 ```
 
-Protest is a small, simple, and easy-to-extend testing framework for ruby. It
-was written as a replacement for Test::Unit, given how awful its code is, and
-how difficult it is to extend in order to add new features.
-
-I believe in minimalistic software, which is easily understood, easy to test,
-and specially, easy to extend for third parties. That's where I'm aiming with
-Protest.
-
-## Get it
-
-```
-gem install protest
-```
+Use `Protest.context` or `Protest.describe` at the top level to define
+a new test case. Inside the block, you can use `test`, `it` or `should`
+for defining each individual test.
 
 ## Setup and teardown
 
@@ -38,7 +38,7 @@ If you need to run code before or after each test, declare a `setup` or
 `teardown` block:
 
 ```ruby
-Protest.context("A user") do
+Protest.context "A user" do
   setup do # this runs before each test
     @user = User.create(name: "John")
   end
@@ -51,14 +51,14 @@ end
 
 `setup` and `teardown` blocks are evaluated in the same context as your test,
 which means any instance variables defined in any of them are available in the
-rest. Both methods are aliased for your comfort as `before` and `after` respectively.
+rest.
 
 ## Nested contexts
 
 Break down your test into logical chunks with nested contexts:
 
 ```ruby
-Protest.describe("A user") do
+Protest.describe "A user" do
   setup do
     @user = User.make
   end
@@ -87,7 +87,7 @@ There are two ways of marking a test as pending. You can declare a test with no
 body:
 
 ```ruby
-Protest.context("Some tests") do
+Protest.context "Some tests" do
   test "this test will be marked as pending"
 
   test "this tests is also pending"
@@ -101,7 +101,7 @@ end
 Or you can call the `pending` method from inside your test:
 
 ```ruby
-Protest.context("Some tests") do
+Protest.context "Some tests" do
   test "this test is pending" do
     pending "oops, this doesn't work"
     assert false
@@ -109,20 +109,31 @@ Protest.context("Some tests") do
 end
 ```
 
+## Assertions
+
+Protest includes just three basic assertion methods:
+
+* assert(condition, message)
+
+  Ensure that a condition is met, otherwise it raises an `AssertionFailed`
+exception. The second argument is optional and it is used to override
+the default failure message.
+
+* assert_equal(expected, actual, message)
+
+  Syntax sugar for `assert(expected == actual, message)`.
+
+* assert_raise(exception, message) do ... end
+
+  Passes if the code block raises the specified exception. If no exception
+is specified, this assertion passes if _any_ exception is raised inside
+the block. The second argument is optional and it is used to override
+the default failure message.
+
 ## Custom assertions
 
-Previous versions of Protest used to bundle all the assertions defined in
-Test::Unit, but that has changed and now Protest includes just three basic
-assertion methods:
-
-- assert
-- assert_equal
-- assert_raise
-
-If you want to add assertions, just define methods that rely on `assert`.
-This method takes a boolean and an optional error message as arguments, and
-the assertion is considered to fail if the boolean evaluates to neither
-`false` nor `nil`.
+If you want to add more assertion methods, just define new methods that
+rely on `assert`.
 
 For example:
 
@@ -171,8 +182,8 @@ passing tests, "F" for failing assertions, "E" for unrescued exceptions, and
 Use this report by calling `Protest.report_with(:progress)`.
 
 For each testcase in your suite, this will output the description of the test
-case (whatever you provide TestCase.context), followed by the name of each test
-in that context, one per line. For example:
+case (whatever you passed to `TestCase.context`), followed by the name of each
+test in that context, one per line. For example:
 
 ```ruby
 Protest.context "A user" do
@@ -208,13 +219,6 @@ Use this report by calling `Protest.report_with(:summary)`.
 This report will output a brief summary with the total number of tests,
 assertions, passed tests, pending tests, failed tests and errors.
 
-### Stories report
-
-Use this report by calling `Protest.report_with(:stories)`.
-
-This report is based on Citrusbyte's [Stories](http://github.com/citrusbyte/stories),
-by Damian Janowski and Michel Martens.
-
 ### Turn report
 
 Use this report by calling `Protest.report_with(:turn)`.
@@ -240,8 +244,13 @@ documentation for details, or take a look at the source code for
 
 If you are using Rails you may want to take a look at [protest-rails](http://github.com/matflores/protest-rails).
 
-## Legal
+## Credits
 
-* Maintainer: Matías Flores — http://matflores.com
-* Author: Nicolás Sanguinetti — http://nicolassanguinetti.info
-* License: MIT (see bundled LICENSE file for more info)
+Protest was created by [Nicolás Sanguinetti](http://nicolassanguinetti.info)
+and is currently maintained by [Matías Flores](http://matflores.com).
+
+## License
+
+Distributed under the terms of the MIT license.
+See bundled [LICENSE](https://github.com/matflores/protest/blob/master/LICENSE)
+file for more info.
