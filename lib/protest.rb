@@ -26,7 +26,7 @@ module Protest
   # whenever you subclass Protest::TestCase, so you probably shouldn't pay
   # much attention to this method.
   def self.add_test_case(test_case)
-    available_test_cases << test_case
+    test_cases << test_case
   end
 
   # Set to +false+ to avoid running tests +at_exit+. Default is +true+.
@@ -45,7 +45,7 @@ module Protest
   #
   # See Protest.add_test_case and Protest.report_with
   def self.run_all_tests!(*report_args)
-    Runner.new(@report).run(*available_test_cases)
+    Runner.new(@report).run(*test_cases)
   end
 
   # Select the name of the Report to use when running tests. See
@@ -76,10 +76,10 @@ module Protest
     @backtrace_filter
   end
 
-  def self.available_test_cases
+  def self.test_cases
     @test_cases ||= []
   end
-  private_class_method :available_test_cases
+  private_class_method :test_cases
 
   def self.available_reports
     @available_reports ||= {}
