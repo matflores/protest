@@ -49,7 +49,7 @@ module Protest
 
       # Call on +:end+ to print a list of failures (failed assertions) and errors
       # (unrescued exceptions), including file and line number where the test
-      # failed, and a short backtrace.
+      # failed, and a backtrace.
       #
       # It will not output anything if there weren't any failures or errors.
       #
@@ -73,7 +73,7 @@ module Protest
           colorize_as = ErroredTest === error ? :errored : :failed
           puts "  #{pad(index+1, pad_indexes)}) #{test_type(error)}: `#{error.test_name}' (on line #{error.line} of `#{error.file}')", colorize_as
           puts indent("With `#{error.error_message}'", 6 + pad_indexes), colorize_as
-          indent(error.backtrace[0..2], 6 + pad_indexes).each {|backtrace| puts backtrace, colorize_as }
+          indent(error.backtrace, 6 + pad_indexes).each {|backtrace| puts backtrace, colorize_as }
           puts
         end
       end
