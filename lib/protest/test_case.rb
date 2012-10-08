@@ -191,7 +191,7 @@ module Protest
     end
 
     def self.inherited(child)
-      Protest.add_test_case(child)
+      Protest.test_cases << child
     end
   end
 end

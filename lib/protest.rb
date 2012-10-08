@@ -22,13 +22,6 @@ module Protest
     available_reports[name] = report
   end
 
-  # Register a test case to be run with Protest. This is done automatically
-  # whenever you subclass Protest::TestCase, so you probably shouldn't pay
-  # much attention to this method.
-  def self.add_test_case(test_case)
-    test_cases << test_case
-  end
-
   # Set to +false+ to avoid running tests +at_exit+. Default is +true+.
   def self.autorun=(flag)
     @autorun = flag
@@ -79,7 +72,6 @@ module Protest
   def self.test_cases
     @test_cases ||= []
   end
-  private_class_method :test_cases
 
   def self.available_reports
     @available_reports ||= {}

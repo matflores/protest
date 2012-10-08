@@ -24,7 +24,7 @@ module TestHelpers
   def mock_test_case(report=:progress, &block)
     test_case = Protest.describe(name, &block)
     test_case.description = ""
-    nested_contexts = Protest.send(:test_cases).select {|t| t < test_case }
+    nested_contexts = Protest.test_cases.select {|t| t < test_case }
 
     report = silent_report(report)
     Protest::Runner.new(report).run(*[test_case, *nested_contexts])
