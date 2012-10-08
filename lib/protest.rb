@@ -19,7 +19,7 @@ module Protest
   #
   # See Protest.report_with to see how to select which report will be used.
   def self.add_report(name, report)
-    available_reports[name] = report
+    reports[name] = report
   end
 
   # Set to +false+ to avoid running tests +at_exit+. Default is +true+.
@@ -55,7 +55,7 @@ module Protest
   # If the given +name+ doesn't match a report registered via
   # Protest.add_report then the method will raise IndexError.
   def self.report(name, *report_args)
-    available_reports.fetch(name).new(*report_args)
+    reports.fetch(name).new(*report_args)
   end
 
   # Set what object will filter the backtrace. It must respond to
@@ -73,10 +73,10 @@ module Protest
     @test_cases ||= []
   end
 
-  def self.available_reports
-    @available_reports ||= {}
+  def self.reports
+    @reports ||= {}
   end
-  private_class_method :available_reports
+  private_class_method :reports
 end
 
 require "protest/utils"
