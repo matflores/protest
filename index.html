@@ -40,20 +40,21 @@
 
         <div class="highlight">
           <pre>
-            <span class="nb">require</span> <span class="s2">"protest"</span>
-            <span class="no">Protest</span><span class="o">.</span><span class="n">describe</span> <span class="s2">"A user"</span> <span class="k">do</span>
-            <span class="n">setup</span> <span class="k">do</span>
-            <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="s2">"john@example.org"</span><span class="p">)</span>
-            <span class="k">end</span>
+<span class="nb">require</span> <span class="s2">"protest"</span>
 
-            <span class="n">it</span> <span class="s2">"has a name"</span> <span class="k">do</span>
-            <span class="n">assert_equal</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">end</span>
+<span class="no">Protest</span><span class="o">.</span><span class="n">describe</span> <span class="s2">"A user"</span> <span class="k">do</span>
+  <span class="n">setup</span> <span class="k">do</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="s2">"john@example.org"</span><span class="p">)</span>
+  <span class="k">end</span>
 
-            <span class="n">it</span> <span class="s2">"has an email"</span> <span class="k">do</span>
-            <span class="n">assert_equal</span> <span class="s2">"john@example.org"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">email</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
+  <span class="n">it</span> <span class="s2">"has a name"</span> <span class="k">do</span>
+    <span class="n">assert_equal</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"has an email"</span> <span class="k">do</span>
+    <span class="n">assert_equal</span> <span class="s2">"john@example.org"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">email</span>
+  <span class="k">end</span>
+<span class="k">end</span>
           </pre>
         </div>
 
@@ -66,16 +67,19 @@
         <p>If you need to run code before or after each test, declare a <code>setup</code> or
           <code>teardown</code> block:</p>
 
-        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
-            <span class="n">setup</span> <span class="k">do</span> <span class="c1"># this runs before each test</span>
-            <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">)</span>
-            <span class="k">end</span>
+        <div class="highlight">
+          <pre>
+<span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
+  <span class="n">setup</span> <span class="k">do</span> <span class="c1"># this runs before each test</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">)</span>
+  <span class="k">end</span>
 
-            <span class="n">teardown</span> <span class="k">do</span> <span class="c1"># this runs after each test</span>
-            <span class="vi">@user</span><span class="o">.</span><span class="n">destroy</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
-        </pre></div>
+  <span class="n">teardown</span> <span class="k">do</span> <span class="c1"># this runs after each test</span>
+    <span class="vi">@user</span><span class="o">.</span><span class="n">destroy</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+          </pre>
+        </div>
 
         <p><code>setup</code> and <code>teardown</code> blocks are evaluated in the same context as your test,
           which means any instance variables defined in any of them are available in the
@@ -85,25 +89,28 @@
 
         <p>Break down your test into logical chunks with nested contexts:</p>
 
-        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">describe</span> <span class="s2">"A user"</span> <span class="k">do</span>
-            <span class="n">setup</span> <span class="k">do</span>
-            <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">make</span>
-            <span class="k">end</span>
+        <div class="highlight">
+          <pre>
+<span class="no">Protest</span><span class="o">.</span><span class="n">describe</span> <span class="s2">"A user"</span> <span class="k">do</span>
+  <span class="n">setup</span> <span class="k">do</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">make</span>
+  <span class="k">end</span>
 
-            <span class="n">context</span> <span class="s2">"when validating"</span> <span class="k">do</span>
-            <span class="n">it</span> <span class="s2">"validates name"</span> <span class="k">do</span>
-            <span class="vi">@user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kp">nil</span>
-            <span class="n">assert</span> <span class="o">!</span><span class="vi">@user</span><span class="o">.</span><span class="n">valid?</span>
-            <span class="k">end</span>
+  <span class="n">context</span> <span class="s2">"when validating"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s2">"validates name"</span> <span class="k">do</span>
+      <span class="vi">@user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kp">nil</span>
+      <span class="n">assert</span> <span class="o">!</span><span class="vi">@user</span><span class="o">.</span><span class="n">valid?</span>
+    <span class="k">end</span>
 
-            <span class="c1"># etc, etc</span>
-            <span class="k">end</span>
+    <span class="c1"># etc, etc</span>
+  <span class="k">end</span>
 
-            <span class="n">context</span> <span class="s2">"doing something else"</span> <span class="k">do</span>
-            <span class="c1"># you get the idea</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
-        </pre></div>
+  <span class="n">context</span> <span class="s2">"doing something else"</span> <span class="k">do</span>
+    <span class="c1"># you get the idea</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+          </pre>
+        </div>
 
         <p>Any <code>setup</code> or <code>teardown</code> blocks you defined in a context will run in that
           context and in <em>any</em> other context nested in it.</p>
@@ -113,26 +120,32 @@
         <p>There are two ways of marking a test as pending. You can declare a test with no
           body:</p>
 
-        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"Some tests"</span> <span class="k">do</span>
-            <span class="nb">test</span> <span class="s2">"this test will be marked as pending"</span>
+        <div class="highlight">
+          <pre>
+<span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"Some tests"</span> <span class="k">do</span>
+  <span class="nb">test</span> <span class="s2">"this test will be marked as pending"</span>
 
-            <span class="nb">test</span> <span class="s2">"this tests is also pending"</span>
+  <span class="nb">test</span> <span class="s2">"this tests is also pending"</span>
 
-            <span class="nb">test</span> <span class="s2">"this test isn't pending"</span> <span class="k">do</span>
-            <span class="n">assert</span> <span class="kp">true</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
-        </pre></div>
+  <span class="nb">test</span> <span class="s2">"this test isn't pending"</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="kp">true</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+          </pre>
+        </div>
 
         <p>Or you can call the <code>pending</code> method from inside your test:</p>
 
-        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"Some tests"</span> <span class="k">do</span>
-            <span class="nb">test</span> <span class="s2">"this test is pending"</span> <span class="k">do</span>
-            <span class="n">pending</span> <span class="s2">"oops, this doesn't work"</span>
-            <span class="n">assert</span> <span class="kp">false</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
-        </pre></div>
+        <div class="highlight">
+          <pre>
+<span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"Some tests"</span> <span class="k">do</span>
+  <span class="nb">test</span> <span class="s2">"this test is pending"</span> <span class="k">do</span>
+    <span class="n">pending</span> <span class="s2">"oops, this doesn't work"</span>
+    <span class="n">assert</span> <span class="kp">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+          </pre>
+        </div>
 
         <h2>Assertions</h2>
 
@@ -168,16 +181,19 @@
 
         <p>For example:</p>
 
-        <div class="highlight"><pre><span class="k">module</span> <span class="nn">AwesomenessAssertions</span>
-            <span class="k">def</span> <span class="nf">assert_awesomeness</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
-            <span class="n">assert</span> <span class="n">object</span><span class="o">.</span><span class="n">awesome?</span><span class="p">,</span> <span class="s2">"</span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> is not awesome enough"</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
+        <div class="highlight">
+          <pre>
+<span class="k">module</span> <span class="nn">AwesomenessAssertions</span>
+  <span class="k">def</span> <span class="nf">assert_awesomeness</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="n">object</span><span class="o">.</span><span class="n">awesome?</span><span class="p">,</span> <span class="s2">"</span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> is not awesome enough"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-            <span class="k">class</span> <span class="nc">Protest</span><span class="o">::</span><span class="no">TestCase</span>
-            <span class="kp">include</span> <span class="no">AwesomenessAssertions</span>
-            <span class="k">end</span>
-        </pre></div>
+<span class="k">class</span> <span class="nc">Protest</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="kp">include</span> <span class="no">AwesomenessAssertions</span>
+<span class="k">end</span>
+          </pre>
+        </div>
 
         <p>You could also define rspec-like matchers if you like that style. See
           <code>matchers.rb</code> in the examples directory for an example.</p>
@@ -189,10 +205,13 @@
 
         <p>You can select which report to use using the <code>report_with</code> method:</p>
 
-        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:documentation</span><span class="p">)</span>
-            <span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:progress</span><span class="p">)</span>
-            <span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:my_awesome_custom_report</span><span class="p">)</span>
-        </pre></div>
+        <div class="highlight">
+          <pre>
+<span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:documentation</span><span class="p">)</span>
+<span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:progress</span><span class="p">)</span>
+<span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:my_awesome_custom_report</span><span class="p">)</span>
+          </pre>
+        </div>
 
         <p>By default, Protest will use the report defined in the <code>PROTEST_REPORT</code>
           environment variable. If this variable is not defined, the Documentation
@@ -214,15 +233,18 @@
           case (whatever you passed to <code>TestCase.context</code>), followed by the name of each
           test in that context, one per line. For example:</p>
 
-        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
-            <span class="nb">test</span> <span class="s2">"has a name"</span>
-            <span class="nb">test</span> <span class="s2">"has an email"</span>
+        <div class="highlight">
+          <pre>
+<span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
+  <span class="nb">test</span> <span class="s2">"has a name"</span>
+  <span class="nb">test</span> <span class="s2">"has an email"</span>
 
-            <span class="n">context</span> <span class="s2">"validations"</span> <span class="k">do</span>
-            <span class="nb">test</span> <span class="s2">"ensure the email can't be blank"</span>
-            <span class="k">end</span>
-            <span class="k">end</span>
-        </pre></div>
+  <span class="n">context</span> <span class="s2">"validations"</span> <span class="k">do</span>
+    <span class="nb">test</span> <span class="s2">"ensure the email can't be blank"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+          </pre>
+        </div>
 
         <p>Will output, when run with the <code>:documentation</code> report:</p>
 
