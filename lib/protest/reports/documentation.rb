@@ -30,9 +30,6 @@ module Protest
   #
   # This is based on the specdoc runner in rspec[http://rspec.info].
   class Reports::Documentation < Report
-    include Utils::Summaries
-    include Utils::ColorfulOutput
-
     attr_reader :stream #:nodoc:
 
     # Set the stream where the report will be written to. STDOUT by default.

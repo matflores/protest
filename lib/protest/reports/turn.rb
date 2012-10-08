@@ -10,9 +10,6 @@ module Protest
   # This report is based on the output displayed by TURN[http://github.com/TwP/turn],
   # Test::Unit Reporter (New) by Tim Pease.
   class Reports::Turn < Report
-    include Utils::Summaries
-    include Utils::ColorfulOutput
-
     attr_reader :stream #:nodoc:
 
     PASS    = "PASS"

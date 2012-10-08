@@ -1,5 +1,8 @@
 module Protest
   class Report
+    include Utils::Summaries
+    include Utils::ColorfulOutput
+
     # Define an event handler for your report. The different events fired in a
     # report's life cycle are:
     #

@@ -3,9 +3,6 @@ module Protest
   # of tests, assertions, passed tests, pending tests, failed tests and
   # errors.
   class Reports::Summary < Report
-    include Utils::Summaries
-    include Utils::ColorfulOutput
-
     attr_reader :stream #:nodoc:
 
     # Set the stream where the report will be written to. STDOUT by default.
