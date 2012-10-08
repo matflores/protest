@@ -46,7 +46,7 @@ module Protest
   #
   # Any extra arguments will be forwarded to the report's #initialize method.
   #
-  # The default report is Protest::Reports::Progress
+  # The default report is Protest::Reports::Documentation
   def self.report_with(name, *report_args)
     @report = report(name, *report_args)
   end
