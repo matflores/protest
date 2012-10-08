@@ -3,13 +3,6 @@ module Protest
   # of tests, assertions, passed tests, pending tests, failed tests and
   # errors.
   class Reports::Summary < Report
-    attr_reader :stream #:nodoc:
-
-    # Set the stream where the report will be written to. STDOUT by default.
-    def initialize(stream=STDOUT)
-      @stream = stream
-    end
-
     on :end do |report|
       report.summarize_test_totals
     end

@@ -7,13 +7,6 @@ module Protest
   # files and line numbers, and after that a list of all failures and errors,
   # which also contains the first 3 lines of the backtrace for each.
   class Reports::Progress < Report
-    attr_reader :stream #:nodoc:
-
-    # Set the stream where the report will be written to. STDOUT by default.
-    def initialize(stream=STDOUT)
-      @stream = stream
-    end
-
     on :end do |report|
       report.puts
       report.puts

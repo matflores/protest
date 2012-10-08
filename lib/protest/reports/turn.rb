@@ -10,17 +10,10 @@ module Protest
   # This report is based on the output displayed by TURN[http://github.com/TwP/turn],
   # Test::Unit Reporter (New) by Tim Pease.
   class Reports::Turn < Report
-    attr_reader :stream #:nodoc:
-
     PASS    = "PASS"
     FAIL    = "FAIL"
     ERROR   = "ERROR"
     PENDING = "PENDING"
-
-    # Set the stream where the report will be written to. STDOUT by default.
-    def initialize(stream=STDOUT)
-      @stream = stream
-    end
 
     on :enter do |report, context|
       report.puts context.description unless context.tests.empty?

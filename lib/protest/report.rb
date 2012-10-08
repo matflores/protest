@@ -3,6 +3,13 @@ module Protest
     include Utils::Summaries
     include Utils::ColorfulOutput
 
+    attr_reader :stream #:nodoc:
+
+    # Set the stream where the report will be written to. STDOUT by default.
+    def initialize(stream=STDOUT)
+      @stream = stream
+    end
+
     # Define an event handler for your report. The different events fired in a
     # report's life cycle are:
     #
