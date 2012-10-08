@@ -9,3 +9,4 @@
 * Removed `Stories` report.
 * Removed `Protest::Stories` module.
 * Refactored reports.
+* Modified Summaries module to include the full filtered backtrace in all reports.
