@@ -28,248 +28,259 @@
         </ul>
       </header>
       <section>
-        <h1>Protest <a href="http://travis-ci.org/matflores/protest"><img src="https://secure.travis-ci.org/matflores/protest.png?branch=master" alt="Build Status"></a>
-</h1>
+        <h1>Protest <a href="http://travis-ci.org/matflores/protest"><img src="https://secure.travis-ci.org/matflores/protest.png?branch=master" alt="Build Status" style="max-width:100%;"></a></h1>
 
-<div class="highlight"><pre><span class="nb">require</span> <span class="s2">"protest"</span>
+        <p>Protest is a tiny, simple, and easy-to-extend testing framework for ruby.</p>
 
-<span class="no">Protest</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">"A user"</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">setup</span> <span class="k">do</span>
-    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="s2">"john@example.org"</span><span class="p">)</span>
-  <span class="k">end</span>
+        <h2>Get it</h2>
 
-  <span class="n">it</span> <span class="s2">"has a name"</span> <span class="k">do</span>
-    <span class="n">assert_equal</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name</span>
-  <span class="k">end</span>
+        <pre><code>gem install protest</code></pre>
 
-  <span class="n">it</span> <span class="s2">"has an email"</span> <span class="k">do</span>
-    <span class="n">assert_equal</span> <span class="s2">"john@example.org"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">email</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+        <h2>Usage</h2>
 
-<p>Protest is a small, simple, and easy-to-extend testing framework for ruby. It
-was written as a replacement for Test::Unit, given how awful its code is, and
-how difficult it is to extend in order to add new features.</p>
+        <div class="highlight">
+          <pre>
+            <span class="nb">require</span> <span class="s2">"protest"</span>
+            <span class="no">Protest</span><span class="o">.</span><span class="n">describe</span> <span class="s2">"A user"</span> <span class="k">do</span>
+            <span class="n">setup</span> <span class="k">do</span>
+            <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="s2">"john@example.org"</span><span class="p">)</span>
+            <span class="k">end</span>
 
-<p>I believe in minimalistic software, which is easily understood, easy to test,
-and specially, easy to extend for third parties. That's where I'm aiming with
-Protest.</p>
+            <span class="n">it</span> <span class="s2">"has a name"</span> <span class="k">do</span>
+            <span class="n">assert_equal</span> <span class="s2">"John Doe"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">end</span>
 
-<h2>Get it</h2>
+            <span class="n">it</span> <span class="s2">"has an email"</span> <span class="k">do</span>
+            <span class="n">assert_equal</span> <span class="s2">"john@example.org"</span><span class="p">,</span> <span class="vi">@user</span><span class="o">.</span><span class="n">email</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
+          </pre>
+        </div>
 
-<pre><code>gem install protest
-</code></pre>
+        <p>Use <code>Protest.context</code> or <code>Protest.describe</code> at the top level to define
+          a new test case. Inside the block, you can use <code>test</code>, <code>it</code> or <code>should</code>
+          for defining each individual test.</p>
 
-<h2>Setup and teardown</h2>
+        <h2>Setup and teardown</h2>
 
-<p>If you need to run code before or after each test, declare a <code>setup</code> or
-<code>teardown</code> block:</p>
+        <p>If you need to run code before or after each test, declare a <code>setup</code> or
+          <code>teardown</code> block:</p>
 
-<div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">"A user"</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">setup</span> <span class="k">do</span> <span class="c1"># this runs before each test</span>
-    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">)</span>
-  <span class="k">end</span>
+        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
+            <span class="n">setup</span> <span class="k">do</span> <span class="c1"># this runs before each test</span>
+            <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">)</span>
+            <span class="k">end</span>
 
-  <span class="n">teardown</span> <span class="k">do</span> <span class="c1"># this runs after each test</span>
-    <span class="vi">@user</span><span class="o">.</span><span class="n">destroy</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+            <span class="n">teardown</span> <span class="k">do</span> <span class="c1"># this runs after each test</span>
+            <span class="vi">@user</span><span class="o">.</span><span class="n">destroy</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
+        </pre></div>
 
-<p><code>setup</code> and <code>teardown</code> blocks are evaluated in the same context as your test,
-which means any instance variables defined in any of them are available in the
-rest. Both methods are aliased for your comfort as <code>before</code> and <code>after</code> respectively.</p>
+        <p><code>setup</code> and <code>teardown</code> blocks are evaluated in the same context as your test,
+          which means any instance variables defined in any of them are available in the
+          rest.</p>
 
-<h2>Nested contexts</h2>
+        <h2>Nested contexts</h2>
 
-<p>Break down your test into logical chunks with nested contexts:</p>
+        <p>Break down your test into logical chunks with nested contexts:</p>
 
-<div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="s2">"A user"</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">setup</span> <span class="k">do</span>
-    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">make</span>
-  <span class="k">end</span>
+        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">describe</span> <span class="s2">"A user"</span> <span class="k">do</span>
+            <span class="n">setup</span> <span class="k">do</span>
+            <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">make</span>
+            <span class="k">end</span>
 
-  <span class="n">context</span> <span class="s2">"when validating"</span> <span class="k">do</span>
-    <span class="n">it</span> <span class="s2">"validates name"</span> <span class="k">do</span>
-      <span class="vi">@user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kp">nil</span>
-      <span class="n">assert</span> <span class="o">!</span><span class="vi">@user</span><span class="o">.</span><span class="n">valid?</span>
-    <span class="k">end</span>
+            <span class="n">context</span> <span class="s2">"when validating"</span> <span class="k">do</span>
+            <span class="n">it</span> <span class="s2">"validates name"</span> <span class="k">do</span>
+            <span class="vi">@user</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kp">nil</span>
+            <span class="n">assert</span> <span class="o">!</span><span class="vi">@user</span><span class="o">.</span><span class="n">valid?</span>
+            <span class="k">end</span>
 
-    <span class="c1"># etc, etc</span>
-  <span class="k">end</span>
+            <span class="c1"># etc, etc</span>
+            <span class="k">end</span>
 
-  <span class="n">context</span> <span class="s2">"doing something else"</span> <span class="k">do</span>
-    <span class="c1"># you get the idea</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+            <span class="n">context</span> <span class="s2">"doing something else"</span> <span class="k">do</span>
+            <span class="c1"># you get the idea</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
+        </pre></div>
 
-<p>Any <code>setup</code> or <code>teardown</code> blocks you defined in a context will run in that
-context and in <em>any</em> other context nested in it.</p>
+        <p>Any <code>setup</code> or <code>teardown</code> blocks you defined in a context will run in that
+          context and in <em>any</em> other context nested in it.</p>
 
-<h2>Pending tests</h2>
+        <h2>Pending tests</h2>
 
-<p>There are two ways of marking a test as pending. You can declare a test with no
-body:</p>
+        <p>There are two ways of marking a test as pending. You can declare a test with no
+          body:</p>
 
-<div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">"Some tests"</span><span class="p">)</span> <span class="k">do</span>
-  <span class="nb">test</span> <span class="s2">"this test will be marked as pending"</span>
+        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"Some tests"</span> <span class="k">do</span>
+            <span class="nb">test</span> <span class="s2">"this test will be marked as pending"</span>
 
-  <span class="nb">test</span> <span class="s2">"this tests is also pending"</span>
+            <span class="nb">test</span> <span class="s2">"this tests is also pending"</span>
 
-  <span class="nb">test</span> <span class="s2">"this test isn't pending"</span> <span class="k">do</span>
-    <span class="n">assert</span> <span class="kp">true</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+            <span class="nb">test</span> <span class="s2">"this test isn't pending"</span> <span class="k">do</span>
+            <span class="n">assert</span> <span class="kp">true</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
+        </pre></div>
 
-<p>Or you can call the <code>pending</code> method from inside your test:</p>
+        <p>Or you can call the <code>pending</code> method from inside your test:</p>
 
-<div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s2">"Some tests"</span><span class="p">)</span> <span class="k">do</span>
-  <span class="nb">test</span> <span class="s2">"this test is pending"</span> <span class="k">do</span>
-    <span class="n">pending</span> <span class="s2">"oops, this doesn't work"</span>
-    <span class="n">assert</span> <span class="kp">false</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"Some tests"</span> <span class="k">do</span>
+            <span class="nb">test</span> <span class="s2">"this test is pending"</span> <span class="k">do</span>
+            <span class="n">pending</span> <span class="s2">"oops, this doesn't work"</span>
+            <span class="n">assert</span> <span class="kp">false</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
+        </pre></div>
 
-<h2>Custom assertions</h2>
+        <h2>Assertions</h2>
 
-<p>Previous versions of Protest used to bundle all the assertions defined in
-Test::Unit, but that has changed and now Protest includes just three basic
-assertion methods:</p>
+        <p>Protest includes just three basic assertion methods:</p>
 
-<ul>
-<li>assert</li>
-<li>assert_equal</li>
-<li>assert_raise</li>
-</ul><p>If you want to add assertions, just define methods that rely on <code>assert</code>.
-This method takes a boolean and an optional error message as arguments, and
-the assertion is considered to fail if the boolean evaluates to neither
-<code>false</code> nor <code>nil</code>.</p>
+        <ul>
+          <li>
+            <p>assert(condition, message)</p>
 
-<p>For example:</p>
+            <p>Ensure that a condition is met, otherwise it raises an <code>AssertionFailed</code>
+              exception. The second argument is optional and it is used to override
+              the default failure message.</p>
+          </li>
+          <li>
+            <p>assert_equal(expected, actual, message)</p>
 
-<div class="highlight"><pre><span class="k">module</span> <span class="nn">AwesomenessAssertions</span>
-  <span class="k">def</span> <span class="nf">assert_awesomeness</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
-    <span class="n">assert</span> <span class="n">object</span><span class="o">.</span><span class="n">awesome?</span><span class="p">,</span> <span class="s2">"</span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> is not awesome enough"</span>
-  <span class="k">end</span>
-<span class="k">end</span>
+            <p>Syntax sugar for <code>assert(expected == actual, message)</code>.</p>
+          </li>
+          <li>
+            <p>assert_raise(exception, message) do ... end</p>
 
-<span class="k">class</span> <span class="nc">Protest</span><span class="o">::</span><span class="no">TestCase</span>
-  <span class="kp">include</span> <span class="no">AwesomenessAssertions</span>
-<span class="k">end</span>
-</pre></div>
+            <p>Passes if the code block raises the specified exception. If no exception
+              is specified, this assertion passes if <em>any</em> exception is raised inside
+              the block. The second argument is optional and it is used to override
+              the default failure message.</p>
+          </li>
+        </ul>
 
-<p>You could also define rspec-like matchers if you like that style. See
-<code>matchers.rb</code> in the examples directory for an example.</p>
+        <h2>Custom assertions</h2>
 
-<h2>Reports</h2>
+        <p>If you want to add more assertion methods, just define new methods that
+          rely on <code>assert</code>.</p>
 
-<p>Protest can report the output of a test suite in many ways. The library ships
-with a few reports defined by default.</p>
+        <p>For example:</p>
 
-<p>You can select which report to use using the <code>report_with</code> method:</p>
+        <div class="highlight"><pre><span class="k">module</span> <span class="nn">AwesomenessAssertions</span>
+            <span class="k">def</span> <span class="nf">assert_awesomeness</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+            <span class="n">assert</span> <span class="n">object</span><span class="o">.</span><span class="n">awesome?</span><span class="p">,</span> <span class="s2">"</span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> is not awesome enough"</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
 
-<div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:documentation</span><span class="p">)</span>
-<span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:progress</span><span class="p">)</span>
-<span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:my_awesome_custom_report</span><span class="p">)</span>
-</pre></div>
+            <span class="k">class</span> <span class="nc">Protest</span><span class="o">::</span><span class="no">TestCase</span>
+            <span class="kp">include</span> <span class="no">AwesomenessAssertions</span>
+            <span class="k">end</span>
+        </pre></div>
 
-<p>By default, Protest will use the report defined in the <code>PROTEST_REPORT</code>
-environment variable. If this variable is not defined, the Documentation
-report will be used.</p>
+        <p>You could also define rspec-like matchers if you like that style. See
+          <code>matchers.rb</code> in the examples directory for an example.</p>
 
-<h3>Progress report</h3>
+        <h2>Reports</h2>
 
-<p>Use this report by calling <code>Protest.report_with(:progress)</code>.</p>
+        <p>Protest can report the output of a test suite in many ways. The library ships
+          with a few reports defined by default.</p>
 
-<p>The progress report will output the "classic" Test::Unit output of periods for
-passing tests, "F" for failing assertions, "E" for unrescued exceptions, and
-"P" for pending tests, in full color.</p>
+        <p>You can select which report to use using the <code>report_with</code> method:</p>
 
-<h3>Documentation report</h3>
+        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:documentation</span><span class="p">)</span>
+            <span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:progress</span><span class="p">)</span>
+            <span class="no">Protest</span><span class="o">.</span><span class="n">report_with</span><span class="p">(</span><span class="ss">:my_awesome_custom_report</span><span class="p">)</span>
+        </pre></div>
 
-<p>Use this report by calling <code>Protest.report_with(:progress)</code>.</p>
+        <p>By default, Protest will use the report defined in the <code>PROTEST_REPORT</code>
+          environment variable. If this variable is not defined, the Documentation
+          report will be used.</p>
 
-<p>For each testcase in your suite, this will output the description of the test
-case (whatever you provide TestCase.context), followed by the name of each test
-in that context, one per line. For example:</p>
+        <h3>Progress report</h3>
 
-<div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
-  <span class="nb">test</span> <span class="s2">"has a name"</span>
-  <span class="nb">test</span> <span class="s2">"has an email"</span>
+        <p>Use this report by calling <code>Protest.report_with(:progress)</code>.</p>
 
-  <span class="n">context</span> <span class="s2">"validations"</span> <span class="k">do</span>
-    <span class="nb">test</span> <span class="s2">"ensure the email can't be blank"</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre></div>
+        <p>The progress report will output the "classic" Test::Unit output of periods for
+          passing tests, "F" for failing assertions, "E" for unrescued exceptions, and
+          "P" for pending tests, in full color.</p>
 
-<p>Will output, when run with the <code>:documentation</code> report:</p>
+        <h3>Documentation report</h3>
 
-<pre><code>A user
-- has a name (Not Yet Implemented)
-- has an email (Not Yet Implemented)
+        <p>Use this report by calling <code>Protest.report_with(:progress)</code>.</p>
 
-A user validations
-- ensure the email can't be blank (Not Yet Implemented)
-</code></pre>
+        <p>For each testcase in your suite, this will output the description of the test
+          case (whatever you passed to <code>TestCase.context</code>), followed by the name of each
+          test in that context, one per line. For example:</p>
 
-<p>(The 'Not Yet Implemented' messages are because the tests have no body. See
-"Pending tests", above.)</p>
+        <div class="highlight"><pre><span class="no">Protest</span><span class="o">.</span><span class="n">context</span> <span class="s2">"A user"</span> <span class="k">do</span>
+            <span class="nb">test</span> <span class="s2">"has a name"</span>
+            <span class="nb">test</span> <span class="s2">"has an email"</span>
 
-<p>This is similar to the specdoc runner in <a href="http://rspec.info">rspec</a>.</p>
+            <span class="n">context</span> <span class="s2">"validations"</span> <span class="k">do</span>
+            <span class="nb">test</span> <span class="s2">"ensure the email can't be blank"</span>
+            <span class="k">end</span>
+            <span class="k">end</span>
+        </pre></div>
 
-<h3>Summary report</h3>
+        <p>Will output, when run with the <code>:documentation</code> report:</p>
 
-<p>Use this report by calling <code>Protest.report_with(:summary)</code>.</p>
+        <pre><code>A user
+            - has a name (Not Yet Implemented)
+            - has an email (Not Yet Implemented)
 
-<p>This report will output a brief summary with the total number of tests,
-assertions, passed tests, pending tests, failed tests and errors.</p>
+            A user validations
+            - ensure the email can't be blank (Not Yet Implemented)
+        </code></pre>
 
-<h3>Stories report</h3>
+        <p>(The 'Not Yet Implemented' messages are because the tests have no body. See
+          "Pending tests", above.)</p>
 
-<p>Use this report by calling <code>Protest.report_with(:stories)</code>.</p>
+        <p>This is similar to the specdoc runner in <a href="http://rspec.info">rspec</a>.</p>
 
-<p>This report is based on Citrusbyte's <a href="http://github.com/citrusbyte/stories">Stories</a>,
-by Damian Janowski and Michel Martens.</p>
+        <h3>Summary report</h3>
 
-<h3>Turn report</h3>
+        <p>Use this report by calling <code>Protest.report_with(:summary)</code>.</p>
 
-<p>Use this report by calling <code>Protest.report_with(:turn)</code>.</p>
+        <p>This report will output a brief summary with the total number of tests,
+          assertions, passed tests, pending tests, failed tests and errors.</p>
 
-<p>This report displays each test on a separate line with failures being displayed
-immediately instead of at the end of the tests.</p>
+        <h3>Turn report</h3>
 
-<p>You might find this useful when running a large test suite, as it can be very
-frustrating to see a failure (....F...) and then have to wait until all the
-tests finish before you can see what the exact failure was.</p>
+        <p>Use this report by calling <code>Protest.report_with(:turn)</code>.</p>
 
-<p>This report is based on the output displayed by <a href="http://github.com/TwP/turn">TURN</a>,
-Test::Unit Reporter (New) by Tim Pease.</p>
+        <p>This report displays each test on a separate line with failures being displayed
+          immediately instead of at the end of the tests.</p>
 
-<h3>Defining your own reports</h3>
+        <p>You might find this useful when running a large test suite, as it can be very
+          frustrating to see a failure (....F...) and then have to wait until all the
+          tests finish before you can see what the exact failure was.</p>
 
-<p>This is really, really easy. All you need to do is subclass <code>Report</code>, and
-register your subclass by calling <code>Protest.add_report</code>. See the
-documentation for details, or take a look at the source code for
-<code>Protest::Reports::Progress</code> and <code>Protest::Reports::Documentation</code>.</p>
+        <p>This report is based on the output displayed by <a href="http://github.com/TwP/turn">TURN</a>,
+          Test::Unit Reporter (New) by Tim Pease.</p>
 
-<h2>Using Rails?</h2>
+        <h3>Defining your own reports</h3>
 
-<p>If you are using Rails you may want to take a look at <a href="http://github.com/matflores/protest-rails">protest-rails</a>.</p>
+        <p>This is really, really easy. All you need to do is subclass <code>Report</code>, and
+          register your subclass by calling <code>Protest.add_report</code>. See the
+          documentation for details, or take a look at the source code for
+          <code>Protest::Reports::Progress</code> and <code>Protest::Reports::Documentation</code>.</p>
 
-<h2>Legal</h2>
+        <h2>Using Rails?</h2>
 
-<ul>
-<li>Maintainer: Matías Flores — <a href="http://matflores.com">http://matflores.com</a>
-</li>
-<li>Author: Nicolás Sanguinetti — <a href="http://nicolassanguinetti.info">http://nicolassanguinetti.info</a>
-</li>
-<li>License: MIT (see bundled LICENSE file for more info)</li>
-</ul>
+        <p>If you are using Rails you may want to take a look at <a href="http://github.com/matflores/protest-rails">protest-rails</a>.</p>
+
+        <h2>Credits</h2>
+
+        <p>Protest was created by <a href="http://nicolassanguinetti.info">Nicolás Sanguinetti</a>
+          and is currently maintained by <a href="http://matflores.com">Matías Flores</a>.</p>
+
+        <h2>License</h2>
+
+        <p>Distributed under the terms of the MIT license.
+          See bundled <a href="https://github.com/matflores/protest/blob/master/LICENSE">LICENSE</a>
+          file for more info.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/matflores">matflores</a></p>
