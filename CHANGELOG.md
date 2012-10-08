@@ -8,3 +8,4 @@
 * Deprecated `story` and `scenario` aliases.
 * Removed `Stories` report.
 * Removed `Protest::Stories` module.
+* Refactored reports.
