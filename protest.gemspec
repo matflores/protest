@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://protestrb.com"
   s.authors       = ["Nicolás Sanguinetti", "Matías Flores"]
   s.email         = "flores.matias@gmail.com"
+  s.license       = "MIT"
   s.require_paths = ["lib"]
   s.files         = %w{ .gitignore CHANGELOG.md LICENSE README.md Rakefile protest.gemspec }
   s.files        += Dir["lib/**/*.rb"]
