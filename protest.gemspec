@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description   = "Protest is a tiny, simple, and easy-to-extend test framework for ruby."
   s.homepage      = "http://protestrb.com"
   s.authors       = ["Nicolás Sanguinetti", "Matías Flores"]
-  s.email         = "mflores@atlanware.com"
+  s.email         = "flores.matias@gmail.com"
   s.require_paths = ["lib"]
 
   s.files = %w[
