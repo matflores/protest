@@ -5,7 +5,6 @@ require "./lib/protest/version"
 Gem::Specification.new do |s|
   s.name    = "protest"
   s.version = Protest::VERSION
-  s.date    = "2010-10-22"
 
   s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
   s.summary     = s.description
@@ -16,7 +15,6 @@ Gem::Specification.new do |s|
 
   s.require_paths     = ["lib"]
   s.rubyforge_project = "protest"
-  s.rubygems_version  = "1.3.1"
 
   s.files = %w[
 .gitignore
