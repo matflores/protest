@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+
+require "./lib/protest/version"
+
 Gem::Specification.new do |s|
   s.name    = "protest"
-  s.version = "0.4.2"
+  s.version = Protest::VERSION
   s.date    = "2010-10-22"
 
   s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
