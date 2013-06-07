@@ -13,13 +13,12 @@ Gem::Specification.new do |s|
 
   s.require_paths     = ["lib"]
   s.rubyforge_project = "protest"
-  s.has_rdoc          = true
   s.rubygems_version  = "1.3.1"
 
   s.files = %w[
 .gitignore
 LICENSE
-README.rdoc
+README.md
 Rakefile
 protest.gemspec
 lib/protest.rb
