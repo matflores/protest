@@ -3,18 +3,14 @@
 require "./lib/protest/version"
 
 Gem::Specification.new do |s|
-  s.name    = "protest"
-  s.version = Protest::VERSION
-
-  s.summary     = "Protest is a tiny, simple, and easy-to-extend test framework"
-  s.description = "Protest is a tiny, simple, and easy-to-extend test framework for ruby."
-  s.homepage = "http://protestrb.com"
-
-  s.authors = ["Nicolás Sanguinetti", "Matías Flores"]
-  s.email   = "mflores@atlanware.com"
-
-  s.require_paths     = ["lib"]
-  s.rubyforge_project = "protest"
+  s.name          = "protest"
+  s.version       = Protest::VERSION
+  s.summary       = "Protest is a tiny, simple, and easy-to-extend test framework"
+  s.description   = "Protest is a tiny, simple, and easy-to-extend test framework for ruby."
+  s.homepage      = "http://protestrb.com"
+  s.authors       = ["Nicolás Sanguinetti", "Matías Flores"]
+  s.email         = "mflores@atlanware.com"
+  s.require_paths = ["lib"]
 
   s.files = %w[
 .gitignore
