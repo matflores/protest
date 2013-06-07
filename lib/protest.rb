@@ -1,6 +1,4 @@
 module Protest
-  VERSION = "0.4.2"
-
   # Exception raised when an assertion fails. See TestCase#assert
   class AssertionFailed < StandardError; end
 
@@ -79,6 +77,7 @@ module Protest
   private_class_method :reports
 end
 
+require "protest/version"
 require "protest/utils"
 require "protest/utils/backtrace_filter"
 require "protest/utils/summaries"
