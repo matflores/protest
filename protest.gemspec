@@ -6,9 +6,9 @@ Gem::Specification.new do |s|
   s.name    = "protest"
   s.version = Protest::VERSION
 
-  s.description = "Protest is a tiny, simple, and easy-to-extend test framework"
-  s.summary     = s.description
-  s.homepage    = "http://protestrb.com"
+  s.summary     = "Protest is a tiny, simple, and easy-to-extend test framework"
+  s.description = "Protest is a tiny, simple, and easy-to-extend test framework for ruby."
+  s.homepage = "http://protestrb.com"
 
   s.authors = ["Nicolás Sanguinetti", "Matías Flores"]
   s.email   = "mflores@atlanware.com"
