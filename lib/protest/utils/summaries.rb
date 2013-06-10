@@ -51,6 +51,11 @@ module Protest
       # (unrescued exceptions), including file and line number where the test
       # failed, and a backtrace.
       #
+      # The number of backtrace lines can be configured with the
+      # environment var PROTEST_BACKTRACE_LINES. Possible values are
+      # -1 (default) to include the full backtrace, or a number n
+      # greater or equal than zero, to display n+1 backtrace lines.
+      #
       # It will not output anything if there weren't any failures or errors.
       #
       # For example:
@@ -73,7 +78,7 @@ module Protest
           colorize_as = ErroredTest === error ? :errored : :failed
           puts "  #{pad(index+1, pad_indexes)}) #{test_type(error)}: `#{error.test_name}' (on line #{error.line} of `#{error.file}')", colorize_as
           puts indent("With `#{error.error_message}'", 6 + pad_indexes), colorize_as
-          indent(error.backtrace, 6 + pad_indexes).each {|backtrace| puts backtrace, colorize_as }
+          indent(error.backtrace[0..backtrace_lines], 6 + pad_indexes).each {|backtrace| puts backtrace, colorize_as }
           puts
         end
       end
@@ -110,6 +115,16 @@ module Protest
           when ErroredTest; "Error"
           when FailedTest;  "Failure"
           end
+        end
+
+        def backtrace_lines
+          @backtrace_lines ||= begin
+                                 return -1 unless ENV["PROTEST_BACKTRACE_LINES"]
+
+                                 lines = ENV["PROTEST_BACKTRACE_LINES"].to_i
+
+                                 lines >= 0 ? lines : 0
+                               end
         end
     end
   end
