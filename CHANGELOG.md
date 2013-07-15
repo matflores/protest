@@ -1,3 +1,7 @@
+### v0.5.1
+
+* Fixed exit status code.
+
 ### v0.5.0
 
 * Added ability of defining the report to be used in the `PROTEST_REPORT`
