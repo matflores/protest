@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/protest.png)](http://badge.fury.io/rb/protest)
 [![Build Status](https://secure.travis-ci.org/matflores/protest.png?branch=master)](http://travis-ci.org/matflores/protest)
+[![Code Climate](https://codeclimate.com/github/matflores/protest.png)](https://codeclimate.com/github/matflores/protest)
 
 Protest is a tiny, simple, and easy-to-extend testing framework for ruby.
 
