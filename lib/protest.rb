@@ -97,6 +97,8 @@ Protest.report_with((ENV["PROTEST_REPORT"] || "documentation").to_sym)
 Protest.backtrace_filter = Protest::Utils::BacktraceFilter.new
 
 at_exit do
+  exit $!.status if $!.is_a?(SystemExit) && !$!.success?
+
   if Protest.autorun?
     Protest.run_all_tests!
     report = Protest.instance_variable_get(:@report)
