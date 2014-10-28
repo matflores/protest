@@ -1,3 +1,7 @@
+### v0.5.2
+
+* Use existing error code if `exit` has been called.
+
 ### v0.5.1
 
 * Fixed exit status code.
