@@ -16,6 +16,9 @@ module Protest
         test_case.run(self)
         fire_event :exit, test_case
       end
+    rescue Interrupt
+      $stderr.puts "Interrupted!"
+    ensure
       fire_event :end
     end
 
@@ -30,6 +33,7 @@ module Protest
     rescue AssertionFailed => e
       fire_event :failure, FailedTest.new(test, e)
     rescue Exception => e
+      raise if e.is_a?(Interrupt)
       fire_event :error, ErroredTest.new(test, e)
     end
 
