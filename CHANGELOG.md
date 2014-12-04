@@ -1,3 +1,7 @@
+### v0.5.3
+
+* Stop running tests and display summary on ^C.
+
 ### v0.5.2
 
 * Use existing error code if `exit` has been called.
