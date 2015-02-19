@@ -31,6 +31,17 @@ module Protest
     !!@autorun
   end
 
+  # Set to +true+ if tests should stop on the first failure. Default is +false+
+  def self.fail_fast=(flag)
+    @fail_fast = flag
+  end
+
+  # Checks to see if tests should stop on the first failure. Default is +false+
+  # See Protest.fail_fast=
+  def self.fail_fast?
+    !!@fail_fast
+  end
+
   # Run all registered test cases through the selected report. You can pass
   # arguments to the Report constructor here.
   #
