@@ -244,6 +244,20 @@ register your subclass by calling `Protest.add_report`. See the
 documentation for details, or take a look at the source code for
 `Protest::Reports::Progress` and `Protest::Reports::Documentation`.
 
+## Failing Early
+
+If needed, you can configure Protest to stop the execution when the first error
+or failed assertion occurs.
+
+This can be configured with the `fail_fast` method:
+
+```ruby
+Protest.fail_fast = true
+```
+
+This feature can be configured by passing a `PROTEST_FAIL_FAST` environment
+variable, to activate it you must set it to `"true"`.
+
 ## Using Rails?
 
 If you are using Rails you may want to take a look at [protest-rails](http://github.com/matflores/protest-rails).
