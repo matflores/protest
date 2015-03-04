@@ -106,7 +106,7 @@ require "protest/reports/summary"
 Protest.autorun = true
 Protest.report_with((ENV["PROTEST_REPORT"] || "documentation").to_sym)
 Protest.backtrace_filter = Protest::Utils::BacktraceFilter.new
-Protest.fail_fast = ENV["FAIL_FAST"] == "true"
+Protest.fail_fast = ENV["PROTEST_FAIL_FAST"] == "true"
 
 at_exit do
   exit $!.status if $!.is_a?(SystemExit) && !$!.success?
