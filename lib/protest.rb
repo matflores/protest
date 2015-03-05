@@ -32,14 +32,14 @@ module Protest
   end
 
   # Set to +true+ if tests should stop on the first failure. Default is +false+
-  def self.fail_fast=(flag)
-    @fail_fast = flag
+  def self.fail_early=(flag)
+    @fail_early = flag
   end
 
   # Checks to see if tests should stop on the first failure. Default is +false+
-  # See Protest.fail_fast=
-  def self.fail_fast?
-    !!@fail_fast
+  # See Protest.fail_early=
+  def self.fail_early?
+    !!@fail_early
   end
 
   # Run all registered test cases through the selected report. You can pass
@@ -106,7 +106,7 @@ require "protest/reports/summary"
 Protest.autorun = true
 Protest.report_with((ENV["PROTEST_REPORT"] || "documentation").to_sym)
 Protest.backtrace_filter = Protest::Utils::BacktraceFilter.new
-Protest.fail_fast = ENV["PROTEST_FAIL_FAST"] == "true"
+Protest.fail_early = ENV["PROTEST_FAIL_EARLY"] == "true"
 
 at_exit do
   exit $!.status if $!.is_a?(SystemExit) && !$!.success?

@@ -43,7 +43,7 @@ module Protest
       event_handler_method = :"on_#{event}"
       @report.send(event_handler_method, *args) if @report.respond_to?(event_handler_method)
 
-      if Protest.fail_fast? && [:failure, :error].include?(event)
+      if Protest.fail_early? && [:failure, :error].include?(event)
         exit 1
       end
     end
