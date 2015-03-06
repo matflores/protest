@@ -32,9 +32,11 @@ module Protest
       fire_event :pending, PendingTest.new(test, e)
     rescue AssertionFailed => e
       fire_event :failure, FailedTest.new(test, e)
+      exit 1 if Protest.fail_early?
     rescue Exception => e
       raise if e.is_a?(Interrupt)
       fire_event :error, ErroredTest.new(test, e)
+      exit 1 if Protest.fail_early?
     end
 
     protected
@@ -42,10 +44,6 @@ module Protest
     def fire_event(event, *args)
       event_handler_method = :"on_#{event}"
       @report.send(event_handler_method, *args) if @report.respond_to?(event_handler_method)
-
-      if Protest.fail_early? && [:failure, :error].include?(event)
-        exit 1
-      end
     end
   end
 end
