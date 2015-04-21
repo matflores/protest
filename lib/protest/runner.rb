@@ -32,9 +32,11 @@ module Protest
       fire_event :pending, PendingTest.new(test, e)
     rescue AssertionFailed => e
       fire_event :failure, FailedTest.new(test, e)
+      exit 1 if Protest.fail_early?
     rescue Exception => e
       raise if e.is_a?(Interrupt)
       fire_event :error, ErroredTest.new(test, e)
+      exit 1 if Protest.fail_early?
     end
 
     protected
