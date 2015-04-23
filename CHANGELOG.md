@@ -1,3 +1,8 @@
+### v0.5.4
+
+* Added list of pending tests, failed tests and errors to summary report.
+* Added `Protest.fail_early` option.
+
 ### v0.5.3
 
 * Stop running tests and display summary on ^C.
