@@ -70,10 +70,19 @@ module Protest
 
         pad_indexes = failures_and_errors.size.to_s.size
         failures_and_errors.each_with_index do |error, index|
-          colorize_as = ErroredTest === error ? :errored : :failed
-          puts "  #{pad(index+1, pad_indexes)}) #{test_type(error)}: `#{error.test_name}' (on line #{error.line} of `#{error.file}')", colorize_as
-          puts indent("With `#{error.error_message}'", 6 + pad_indexes), colorize_as
-          indent(error.backtrace, 6 + pad_indexes).each {|backtrace| puts backtrace, colorize_as }
+          if ErroredTest === error
+            colorize_as = :errored
+            error_prefix = "With #{error.error.class.name}:"
+          else
+            colorize_as = :failed
+            error_prefix = "With"
+          end
+
+          lines = []
+          lines << "  #{pad(index+1, pad_indexes)}) #{test_type(error)}: `#{error.test_name}' (on line #{error.line} of `#{error.file}')"
+          lines.concat indent("#{error_prefix} `#{error.error_message}'", 6 + pad_indexes)
+          lines.concat indent(error.backtrace, 6 + pad_indexes)
+          lines.each { |line| puts line, colorize_as }
           puts
         end
       end
