@@ -258,6 +258,16 @@ Protest.fail_early = true
 This feature can be configured by passing a `PROTEST_FAIL_EARLY` environment
 variable, to activate it you must set it to `"true"`.
 
+## Filtering
+
+You can filter the tests with an additional argument on the command-line,
+which will act as regex for test names:
+
+```ruby
+ruby -r test/something_test.rb --name 'something'
+ruby -r test/something_test.rb -n 'something'
+```
+
 ## Using Rails?
 
 If you are using Rails you may want to take a look at [protest-rails](http://github.com/matflores/protest-rails).
