@@ -1,3 +1,5 @@
+require "optparse"
+
 module Protest
   class Runner
     # Set up the test runner. Takes in a report that will be passed to test
@@ -10,10 +12,11 @@ module Protest
     # events on the runner's report, at the +start+ and +end+ of the test run,
     # and before and after each test case (+enter+ and +exit+.)
     def run(*test_cases)
+      options = parse_cli_options
       fire_event :start
       test_cases.each do |test_case|
         fire_event :enter, test_case
-        test_case.run(self)
+        test_case.run(self, options)
         fire_event :exit, test_case
       end
     rescue Interrupt
@@ -40,6 +43,15 @@ module Protest
     end
 
     protected
+
+    def parse_cli_options
+      options = {}
+      parser = OptionParser.new do |opts|
+        opts.on("-n", "--name NAME", String) { |name| options[:name] = name }
+      end
+      parser.parse!
+      options
+    end
 
     def fire_event(event, *args)
       event_handler_method = :"on_#{event}"

@@ -31,8 +31,14 @@ module Protest
   class TestCase
     # Run all tests in this context. Takes a Runner instance in order to
     # provide output.
-    def self.run(runner)
-      tests.each {|test| runner.report(test) }
+    def self.run(runner, options = {})
+      tests_to_run = tests
+      if options[:name]
+        tests_to_run = tests.select do |test|
+          "#{test.class.description} #{test.name}" =~ Regexp.new(options[:name])
+        end
+      end
+      tests_to_run.each {|test| runner.report(test) }
     end
 
     # Tests added to this context.
