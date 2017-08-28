@@ -1,4 +1,4 @@
-require "test_helper"
+require_relative "test_helper"
 
 Protest.describe("A test case") do
   it "records the number of assertions run" do
