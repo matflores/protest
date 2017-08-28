@@ -258,6 +258,19 @@ Protest.fail_early = true
 This feature can be configured by passing a `PROTEST_FAIL_EARLY` environment
 variable, to activate it you must set it to `"true"`.
 
+### Command-Line
+
+Protest comes with a command-line interface for running tests:
+
+```
+$ protest --help
+Usage:
+  protest --help             # Show this help text
+  protest                    # Run all tests in test/**/*.rb
+  protest DIR                # Run all tests in DIR/**/*.rb
+  protest FILE1.rb FILE2.rb  # Run all tests in FILE1.rb and FILE2.rb
+```
+
 ## Using Rails?
 
 If you are using Rails you may want to take a look at [protest-rails](http://github.com/matflores/protest-rails).

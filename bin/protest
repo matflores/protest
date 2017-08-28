@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require "protest"
+
+usage = <<-TEXT
+Usage:
+  protest --help             # Show this help text
+  protest                    # Run all tests in test/**/*.rb
+  protest DIR                # Run all tests in DIR/**/*.rb
+  protest FILE1.rb FILE2.rb  # Run all tests in FILE1.rb and FILE2.rb
+TEXT
+
+test_files = case ARGV.first
+             when "-h", "--help" then warn usage; exit 0
+             when nil            then Dir["test/**/*.rb"]
+             else
+               ARGV.flat_map do |path|
+                 File.directory?(path) ? Dir["#{path}/**/*.rb"] : path
+               end
+             end
+
+test_files.each { |rb| require "./#{rb}" }
