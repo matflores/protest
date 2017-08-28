@@ -13,7 +13,7 @@ module Protest
   #       ...
   #     end
   def self.context(description, &block)
-    TestCase.context(description, &block)
+    TestCase.context(description, caller.at(0), &block)
   end
 
   class << self
@@ -29,12 +29,6 @@ module Protest
   # your tests by declaring nested contexts inside the class. See
   # TestCase.context.
   class TestCase
-    # Run all tests in this context. Takes a Runner instance in order to
-    # provide output.
-    def self.run(runner)
-      tests.each {|test| runner.report(test) }
-    end
-
     # Tests added to this context.
     def self.tests
       @tests ||= []
@@ -65,17 +59,18 @@ module Protest
     # Define a new test context nested under the current one. All +setup+ and
     # +teardown+ blocks defined on the current context will be inherited by the
     # new context. This method is aliased as +describe+ for your comfort.
-    def self.context(description, &block)
+    def self.context(description, location = caller.at(0), &block)
       subclass = Class.new(self)
       subclass.class_eval(&block) if block
       subclass.description = description
+      subclass.location = location
       const_set(sanitize_description(description), subclass)
     end
 
     class << self
       # Fancy name for your test case, reports can use this to give nice,
       # descriptive output when running your tests.
-      attr_accessor :description
+      attr_accessor :description, :location
 
       alias_method :describe, :context
       alias_method :it,       :test
@@ -99,6 +94,14 @@ module Protest
       def after(&block)
         warn "[DEPRECATED] `after` alias is deprecated. Use `teardown` instead."
         teardown(&block)
+      end
+
+      def line_number
+        Integer(location.match(/:/).post_match[/^\d+/])
+      end
+
+      def filename
+        location.match(/:/).pre_match
       end
     end
 
@@ -166,6 +169,10 @@ module Protest
     # Name of the test
     def name
       @name
+    end
+
+    def line_number
+      Integer(@location.match(/:/).post_match[/^\d+/])
     end
 
     private

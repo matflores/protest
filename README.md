@@ -269,6 +269,7 @@ Usage:
   protest                    # Run all tests in test/**/*.rb
   protest DIR                # Run all tests in DIR/**/*.rb
   protest FILE1.rb FILE2.rb  # Run all tests in FILE1.rb and FILE2.rb
+  protest FILE.rb:15         # Run tests in FILE.rb on line 15
 ```
 
 ## Using Rails?

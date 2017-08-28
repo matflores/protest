@@ -8,15 +8,35 @@ Usage:
   protest                    # Run all tests in test/**/*.rb
   protest DIR                # Run all tests in DIR/**/*.rb
   protest FILE1.rb FILE2.rb  # Run all tests in FILE1.rb and FILE2.rb
+  protest FILE.rb:15         # Run tests in FILE.rb on line 15
 TEXT
 
 test_files = case ARGV.first
              when "-h", "--help" then warn usage; exit 0
              when nil            then Dir["test/**/*.rb"]
              else
+               line_numbers = ARGV
+                 .select { |path| path[/:\d+$/] }
+                 .map { |path| path.split(":") }
+                 .map { |filename, line| [File.expand_path(filename), Integer(line)] }
+                 .to_h
+
                ARGV.flat_map do |path|
-                 File.directory?(path) ? Dir["#{path}/**/*.rb"] : path
+                 if File.directory?(path)
+                   Dir["#{path}/**/*.rb"]
+                 else
+                   path.sub(/:\d+$/, "")
+                 end
                end
              end
 
 test_files.each { |rb| require "./#{rb}" }
+
+options = {}
+options[:line_numbers] = line_numbers if line_numbers
+
+Protest.autorun = false
+Protest.run_all_tests!(options)
+
+report = Protest.instance_variable_get(:@report)
+exit report.failures_and_errors.empty?
