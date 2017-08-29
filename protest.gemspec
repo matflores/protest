@@ -13,5 +13,6 @@ Gem::Specification.new do |s|
   s.license       = "MIT"
   s.require_paths = ["lib"]
   s.files         = %w{ .gitignore CHANGELOG.md LICENSE README.md Rakefile protest.gemspec }
-  s.files        += Dir["lib/**/*.rb", "bin/protest"]
+  s.files        += Dir["lib/**/*.rb"]
+  s.executable    = "protest"
 end
