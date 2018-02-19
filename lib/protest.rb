@@ -46,8 +46,8 @@ module Protest
   # arguments to the Report constructor here.
   #
   # See Protest.add_test_case and Protest.report_with
-  def self.run_all_tests!(*report_args)
-    Runner.new(@report).run(*test_cases)
+  def self.run_all_tests!(options = {})
+    Runner.new(@report).run(test_cases, options)
   end
 
   # Select the name of the Report to use when running tests. See
