@@ -27,7 +27,7 @@ module TestHelpers
     nested_contexts = Protest.test_cases.select {|t| t < test_case }
 
     report = silent_report(report)
-    Protest::Runner.new(report).run(*[test_case, *nested_contexts])
+    Protest::Runner.new(report).run([test_case, *nested_contexts])
     report
   end
 end
